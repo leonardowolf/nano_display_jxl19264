@@ -1,0 +1,5 @@
+usart_monitor.c:29:13:monitor_send_string	16	static
+usart_monitor.c:37:13:monitor_check_cmd	56	static
+usart_monitor.c:90:6:monitor_irq_handler	24	static
+usart_monitor.c:124:6:monitor_interrupt	8	static
+usart_monitor.c:140:6:monitor_init	8	static
