@@ -1,5 +1,0 @@
-../Core/Src/s_monitor.c:27:6:monitor_send_string	16	static
-../Core/Src/s_monitor.c:33:6:monitor_check_cmd	24	static
-../Core/Src/s_monitor.c:153:6:monitor_irq_handler	24	static
-../Core/Src/s_monitor.c:183:1:monitor_interrupt	8	static
-../Core/Src/s_monitor.c:191:6:serial_begin	8	static
