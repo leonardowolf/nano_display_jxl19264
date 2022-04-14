@@ -75,6 +75,7 @@ void text_insertion_point(uint8_t col, uint8_t row);
 void put_pixel(uint8_t x, uint8_t y);
 void erase_pixel(uint8_t x, uint8_t y);
 void disp_splash(void);
+void put_cursor(void);
 void lcd_print(uint8_t *txt);
 void def_thin_v_bar(void);
 void def_thick_v_bar(void);

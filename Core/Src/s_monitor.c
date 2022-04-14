@@ -194,6 +194,11 @@ void serial_begin(void) {
 	new_cmd = false;
 	Queue =  createQueue(CMD_BUF_SIZE);
 
+	clear_display();
+	test_font();
+	clear_display();
+	put_cursor();
+
 	// enabling interrupts for errors
 	//   (Frame error, noise error, overrun error)
 	huart1.Instance->CR3 |= USART_CR3_EIE;

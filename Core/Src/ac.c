@@ -149,7 +149,7 @@ void start(void) {
 	n	Only numbers and extra glyphs for writing date and time strings are included in the font.
 	...	Other custom character list.*/
 
-	u8g2_SetFont(&u8g2, u8g2_font_t0_11_mf);
+	u8g2_SetFont(&u8g2, u8g2_font_10x20_mf);
 
 
 

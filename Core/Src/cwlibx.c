@@ -14,7 +14,7 @@
 #include "cwlibx.h"
 
 extern u8g2_t u8g2;
-extern uint8_t u8g2_cursor[2];
+//extern uint8_t u8g2_cursor[2];
 
 #define delay_betwen_cmds 50 //tempo de descanso entre comandos
 
@@ -446,6 +446,14 @@ void str_warper(txt_wrap *wrap, uint8_t *txt) {
 				* (u8g2_GetDisplayWidth(&u8g2) / u8g2_GetMaxCharWidth(&u8g2))];
 		aux++;
 	} while (aux != wrap->wrap_times);
+}
+void put_cursor(void){
+	lcd_print("_ A");
+	u8g2_SendBuffer(&u8g2);
+}
+void test_font(void){
+	lcd_print("    XCoder v3.0");
+	u8g2_SendBuffer(&u8g2);
 }
 
 void lcd_print(uint8_t *txt) {
