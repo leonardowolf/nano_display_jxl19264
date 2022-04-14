@@ -5,106 +5,92 @@
  *      Author: munin
  */
 
-
 // C program for array implementation of queue
-#include <limits.h>
 #include <stdio.h>
-#include <stdlib.h>
-
-// A structure to represent a queue
-struct Queue {
-	int front, rear, size;
-	unsigned capacity;
-	int* array;
-};
+#include <stdint.h>
+#include <stdbool.h>
+#include <circular_queue.h>
 
 // function to create a queue
 // of given capacity.
 // It initializes size of queue as 0
-struct Queue* createQueue(unsigned capacity)
-{
-	struct Queue* queue = (struct Queue*)malloc(
-		sizeof(struct Queue));
-	queue->capacity = capacity;
-	queue->front = queue->size = 0;
+queue* createQueue(unsigned capacity) {
+	queue aux[1];
+	queue *Queue = aux;
+	Queue->capacity = capacity;
+	Queue->front = Queue->size = 0;
 
-	// This is important, see the enqueue
-	queue->rear = capacity - 1;
-	queue->array = (int*)malloc(
-		queue->capacity * sizeof(int));
-	return queue;
+	// This is important, see the enQueue
+	Queue->rear = capacity - 1;
+	uint8_t pl[Queue->capacity];
+	Queue->array = pl;
+	return Queue;
 }
 
 // Queue is full when size becomes
 // equal to the capacity
-int isFull(struct Queue* queue)
-{
-	return (queue->size == queue->capacity);
+uint8_t isFull(queue *Queue) {
+	return (Queue->size == Queue->capacity);
 }
 
 // Queue is empty when size is 0
-int isEmpty(struct Queue* queue)
-{
-	return (queue->size == 0);
+uint8_t isEmpty(queue *Queue) {
+	return (Queue->size == 0);
 }
 
 // Function to add an item to the queue.
 // It changes rear and size
-void enqueue(struct Queue* queue, int item)
-{
-	if (isFull(queue))
+void enQueue(queue *Queue, uint8_t item) {
+	if (isFull(Queue))
 		return;
-	queue->rear = (queue->rear + 1)
-				% queue->capacity;
-	queue->array[queue->rear] = item;
-	queue->size = queue->size + 1;
-	printf("%d enqueued to queue\n", item);
+	Queue->rear = (Queue->rear + 1) % Queue->capacity;
+	Queue->array[Queue->rear] = item;
+	Queue->size = Queue->size + 1;
 }
 
 // Function to remove an item from queue.
 // It changes front and size
-int dequeue(struct Queue* queue)
-{
-	if (isEmpty(queue))
-		return INT_MIN;
-	int item = queue->array[queue->front];
-	queue->front = (queue->front + 1)
-				% queue->capacity;
-	queue->size = queue->size - 1;
+uint8_t deQueue(queue *Queue) {
+	uint8_t item;
+	if (isEmpty(Queue))
+		return false;
+	item = Queue->array[Queue->front];
+	Queue->front = (Queue->front + 1) % Queue->capacity;
+	Queue->size = Queue->size - 1;
 	return item;
 }
 
 // Function to get front of queue
-int front(struct Queue* queue)
-{
-	if (isEmpty(queue))
-		return INT_MIN;
-	return queue->array[queue->front];
+uint8_t front(queue *Queue) {
+	if (isEmpty(Queue))
+		return false;
+	return Queue->array[Queue->front];
 }
 
 // Function to get rear of queue
-int rear(struct Queue* queue)
-{
-	if (isEmpty(queue))
-		return INT_MIN;
-	return queue->array[queue->rear];
+uint8_t rear(queue *Queue) {
+	if (isEmpty(Queue))
+		return false;
+	return Queue->array[Queue->rear];
 }
 
-// Driver program to test above functions./
-int main()
-{
-	struct Queue* queue = createQueue(1000);
+/*
+	 Driver program to test above functions.
+	 uint8_t main()
+	 {
+	 queue* Queue = createQueue(1000);
 
-	enqueue(queue, 10);
-	enqueue(queue, 20);
-	enqueue(queue, 30);
-	enqueue(queue, 40);
+	 enQueue(Queue, 10);
+	 enQueue(Queue, 20);
+	 enQueue(Queue, 30);
+	 enQueue(Queue, 40);
 
-	printf("%d dequeued from queue\n\n",
-		dequeue(queue));
+	 printf("%d deQueued from queue\n\n",
+	 deQueue(Queue));
 
-	printf("Front item is %d\n", front(queue));
-	printf("Rear item is %d\n", rear(queue));
+	 printf("Front item is %d\n", front(Queue));
+	 printf("Rear item is %d\n", rear(Queue));
 
-	return 0;
-}
+	 return 0;
+	 }
+ */

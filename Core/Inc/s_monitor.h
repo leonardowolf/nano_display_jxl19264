@@ -14,4 +14,7 @@ void monitor_irq_handler(void);
 void monitor_interrupt(void);
 void serial_begin(void);
 
+#define CMD_BUF_SIZE 100
+#define ANS_BUF_SIZE 100
+
 #endif /* INC_S_MONITOR_H_ */

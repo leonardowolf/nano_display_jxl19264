@@ -9,18 +9,20 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include "circular_queue.h"
 #include "main.h"
 #include "stm32f1xx_hal.h"
 #include "s_monitor.h"
 #include "cwlibx.h"
 
-#define CMD_BUF_SIZE 100
+
 
 extern UART_HandleTypeDef huart1;
 #define USART_PORT huart1.Instance
 
 uint8_t cmd[CMD_BUF_SIZE];
-uint8_t ans[CMD_BUF_SIZE];
+uint8_t ans[ANS_BUF_SIZE];
+queue * Queue;
 uint32_t size;
 bool new_cmd;
 
@@ -39,9 +41,6 @@ void monitor_check_cmd(char *cmd, uint32_t size) {
 	}
 	//é um comando?
 	else if (cmd[0] == 254) {
-//			char str1[10];
-//			char sub_cmd[];
-//			char str2[10];
 
 		if (cmd[1] == LCD_FIRMWARE_NUMBER) {
 			snprintf((char*) ans, CMD_BUF_SIZE, "Firmware Version: %s\r\n",
@@ -166,11 +165,13 @@ void monitor_irq_handler(void) {
 
 		if (c == 253) {
 			cmd[size] = 253;
+			enQueue(Queue, c);
 			new_cmd = true;
 		}
 
 		else if (!new_cmd) {
 			cmd[size] = c;
+			enQueue(Queue, c);
 			size++;
 
 			if (size >= CMD_BUF_SIZE)
@@ -191,6 +192,7 @@ monitor_interrupt(){
 void serial_begin(void) {
 	size = 0;
 	new_cmd = false;
+	Queue =  createQueue(CMD_BUF_SIZE);
 
 	// enabling interrupts for errors
 	//   (Frame error, noise error, overrun error)
